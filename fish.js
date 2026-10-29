@@ -28,29 +28,45 @@
     return water + Math.sin(x * 0.018 + now * 0.0012) * 2.2 + Math.sin(x * 0.047 - now * 0.0017) * 1.1;
   }
 
+  // Color schemes, picked at random for each jump: [back, belly, fins].
+  // null means the classic tuna, which uses the page's light/dark colors.
+  const SCHEMES = [
+    null,
+    ["#3a6fb0", "#dfe4ea", "#f2c230"], // yellowfin
+    ["#6b7f8f", "#f0a38a", "#e07a5f"], // salmon
+    ["#6f7d45", "#ecc0b6", "#c96b7a"], // rainbow trout
+    ["#2f9e7a", "#f2d14b", "#3bb39a"], // mahi-mahi
+    ["#d08a1f", "#f6d58b", "#c0563f"], // goldfish
+    ["#7a5bd6", "#ddd3f7", "#f08bb0"], // something made up
+  ];
+
   function startJump(now, atX) {
+    const size = 0.7 + Math.random() * 1.1; // 0.7x to 1.8x
+    const scheme = SCHEMES[Math.floor(Math.random() * SCHEMES.length)];
     const dir = Math.random() < 0.5 ? -1 : 1;
-    const span = 130 + Math.random() * 110;
+    const span = (110 + Math.random() * 100) * (0.6 + size * 0.45);
     let x0 = atX != null ? atX - (dir * span) / 2 : 60 + Math.random() * (W - 120);
     x0 = Math.max(30, Math.min(W - 30, x0));
     let x1 = x0 + dir * span;
     if (x1 < 30 || x1 > W - 30) x1 = x0 - dir * span;
     jump = {
       x0, x1, start: now,
-      dur: 1050 + Math.random() * 300,
-      height: Math.min(water - 22, 60 + Math.random() * 50),
+      dur: (950 + Math.random() * 300) * (0.8 + size * 0.2),
+      height: Math.min(water - 18 * size, (50 + Math.random() * 45) * (0.7 + size * 0.3)),
+      size,
+      colors: scheme && { back: scheme[0], belly: scheme[1], finlet: scheme[2] },
       splashedOut: false, splashedIn: false,
     };
   }
 
-  function splash(x, now, big) {
-    ripples.push({ x, born: now });
-    const n = big ? 9 : 6;
+  function splash(x, now, big, size) {
+    ripples.push({ x, born: now, size });
+    const n = Math.round((big ? 9 : 6) * size);
     for (let i = 0; i < n; i++) {
       drops.push({
         x, y: water,
-        vx: (Math.random() - 0.5) * 1.6,
-        vy: -(1.2 + Math.random() * 2.2),
+        vx: (Math.random() - 0.5) * 1.6 * size,
+        vy: -(1.2 + Math.random() * 2.2) * Math.sqrt(size),
         r: 1 + Math.random() * 1.3,
       });
     }
@@ -64,11 +80,11 @@
     };
   }
 
-  function drawFish(x, y, angle, flip, wag, c) {
+  function drawFish(x, y, angle, flip, wag, c, size) {
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(angle);
-    ctx.scale(1.25, 1.25);
+    ctx.scale(1.25 * size, 1.25 * size);
     if (flip) ctx.scale(1, -1);
 
     // crescent tail
@@ -151,8 +167,8 @@
         const wag = Math.sin(now * 0.03) * 0.35;
         if (!still) {
           // splash when crossing the surface
-          if (!j.splashedOut && a.y < water) { j.splashedOut = true; splash(a.x, now, false); }
-          if (j.splashedOut && !j.splashedIn && p > 0.5 && a.y > water - 2) { j.splashedIn = true; splash(a.x, now, true); }
+          if (!j.splashedOut && a.y < water) { j.splashedOut = true; splash(a.x, now, false, j.size); }
+          if (j.splashedOut && !j.splashedIn && p > 0.5 && a.y > water - 2) { j.splashedIn = true; splash(a.x, now, true, j.size); }
         }
         ctx.save();
         ctx.beginPath();
@@ -161,7 +177,7 @@
         ctx.lineTo(W, 0);
         ctx.closePath();
         ctx.clip();
-        drawFish(a.x, a.y, angle, dir < 0, wag, c);
+        drawFish(a.x, a.y, angle, dir < 0, wag, j.colors ? { ...c, ...j.colors } : c, j.size || 1);
         ctx.restore();
       }
     }
@@ -174,7 +190,7 @@
       ctx.globalAlpha = 1 - age;
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.ellipse(r.x, water + 3, 6 + age * 38, 1.5 + age * 4, 0, 0, Math.PI * 2);
+      ctx.ellipse(r.x, water + 3, (6 + age * 38) * r.size, (1.5 + age * 4) * Math.sqrt(r.size), 0, 0, Math.PI * 2);
       ctx.stroke();
     }
     ctx.globalAlpha = 1;
