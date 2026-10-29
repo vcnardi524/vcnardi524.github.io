@@ -1,0 +1,306 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-kerning: normal;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6;
+    --font-family-base: "SF Pro Text", "Courier New", "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --color: rgb(68, 68, 68);
+    --backgroundColor: #f6f1eb;
+}
+
+hr {
+    background-color: gray;
+}
+.largeHr{
+    height: 4px;
+    margin-bottom: 50px;
+    border: none;
+}
+.mediumHr{
+    height: 2px;
+    border: none;
+}
+
+body {
+    font-family: var(--font-family-base);
+    margin: 0;
+    background: var(--backgroundColor);
+    color: var(--color);
+}
+header{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+    #navbar{
+        width: 100%;
+        background-color: var(--backgroundColor);
+    }
+    .fixed-navbar{
+        z-index: 2;
+        position: fixed;
+        top: 0;
+    }
+
+    #navbar ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        margin-left: 10%;
+        margin-right: 10%;
+        overflow: hidden;
+        min-height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    #navbar li, .dropdown {
+        cursor: pointer;
+        float: left;
+    }
+
+    #navbar li > a,
+    #navbar .dropDown{ /* for immediate hyper links*/
+        color: var(--color);
+        margin: 5px;
+        margin-bottom: 15px;
+        margin-top: 15px;
+
+        padding: 5px 25px 5px 25px;
+
+        border-radius: 2px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+    }
+    #navbar .dropDown .content{
+        max-height: 0;
+        opacity: 0%;
+        transition: all 0.25s;
+        overflow: hidden;
+        position: absolute;
+
+        background-color: var(--backgroundColor);
+        box-shadow: 0px 0px 2px gray;
+        border-radius: 2px;
+    }
+
+    #navbar .dropDown a{
+        color: var(--color);
+        padding: 10px;
+        text-align: left;
+        text-decoration: none;
+        display: block;
+        cursor: pointer;
+
+    }
+
+    #navbar li> a:hover{
+        background:radial-gradient(ellipse at center , white, #f6f1eb 100%);
+        box-shadow: 0px 0px 2px gray;
+    }
+
+    #navbar .dropDown:hover .content{
+        opacity: 100%;
+        max-height: 150px;
+    }
+    #navbar .dropDown a:hover{
+        background:radial-gradient(ellipse at center , white, #f6f1eb 100%);
+        text-decoration: underline;
+        text-underline-offset: 6px;
+        text-decoration-thickness: 2px;
+        text-decoration-color: gray;
+        text-decoration-skip-ink: none;
+    }
+
+    /*
+    HOME BUTTON
+     */
+
+    .homeButton {
+        font-size: 30px;
+        padding: 20px;
+        padding-top: 30px;
+        font-weight: bold;
+        height: 40px;
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .homeButton a {
+        color: var(--color);
+        text-decoration: none;
+    }
+
+    .homeButton a:hover {
+        text-decoration: underline;
+        text-underline-offset: 6px;
+        text-decoration-thickness: 2px;
+        text-decoration-color: gray;
+        text-decoration-skip-ink: none;
+        cursor: pointer;
+    }
+
+
+main {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+footer{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+
+}
+    #footerTag{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+
+        margin: 5px;
+        font-size: 20px;
+    }
+
+    #footerLinks{
+        margin-right: 10px;
+    }
+
+    .footerIcon{
+        margin: 10px;
+    }
+
+
+
+h1, h2, h3, h4, h5, h6, h7 {
+    font-family: "Optima", SansSerif;
+    /* text-align: center; */
+    margin: 70px 0 10px 3px;
+    font-weight: bold;
+}
+h3{
+    display: block;
+    font-size: 1.45rem;
+}
+
+
+
+
+
+#projMenu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+    padding: 0;
+}
+#projMenu .projBubble{
+    height: auto;
+    width: 50%;
+    padding: 8px;
+    margin:10px;
+    top: 0px;
+
+    border-radius: 2px;
+    border: 2px solid rgba(var(--color) .5);
+    background-color: white;
+    box-shadow: inset 0 2px 5px grey;
+}
+.projInfo{
+    transition: 0.25s;
+    /*position: absolute;*/
+    max-height: 90px;
+    overflow: hidden;
+}
+
+.ellipSetting{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.projButton{
+    display: block;
+    margin: auto;
+    border: none;
+    background-color: cornflowerblue;
+    color: lightyellow;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    width: 150px;
+    height: 35px;
+
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* .Hobs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;  
+  text-align: center;
+} 
+*/
+
+#hobbies li {
+    font-size: 24px;
+}
+
+@media only screen and (max-width: 769px){
+    html{
+        font-size: 13px;
+    }
+    h1{
+        font-size: 18px;
+    }
+    h2{
+        font-size: 16px;
+    }
+    h3{
+        font-size: 15px;
+    }
+    h4, h5, h6, h7{
+        font-size: 14px;
+    }
+    #projMenu{
+        flex-direction: column;
+    }
+    #projMenu .projBubble{
+        width:100%;
+    }
+    .ellipSetting{
+        display: flex;
+    }
+    #navbar{
+        font-size: 14px;
+    }
+    #navbar li > a,
+    #navbar .dropDown{ 
+        padding: 3px 15px 3px 15px;
+    }
+
+}
+
+/* this is for mobile devices fixme///////////
+@media only screen and (max-width: 800px) and (orientation: portrait) {}
+*/

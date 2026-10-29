@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hobbies · Victor Nardi</title>
+  <meta name="description" content="Piano and cooking.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="hobbies.html" aria-current="page">Hobbies</a>
+    <a href="travel.html">Travel</a>
+  </nav>
+
+  <h1>Hobbies</h1>
+
+  <h2>Piano</h2>
+  <div class="split">
+  <div>
+  <p>
+    I've played classical piano since I was a kid, and it's taken me to
+    competitions and concert halls in a few different countries.
+    These days I also play guitar and harmonica, just for fun.
+    A couple of piano performances:
+  </p>
+  <figure>
+    <img src="photos/misc/piano_livia.jpg" alt="Piano competition in Brussels with my sister">
+    <figcaption>A piano competition in Brussels with my sister, Livia.</figcaption>
+  </figure>
+  </div>
+  <div class="videos">
+    <iframe src="https://www.youtube-nocookie.com/embed/1BCtsX0MiSA" title="Victor and Livia Nardi performing" loading="lazy"
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <iframe src="https://www.youtube-nocookie.com/embed/A_OuVen2cro" title="Victor Nardi performing at 15" loading="lazy"
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+  </div>
+
+  <h2>Cooking</h2>
+  <p>
+    I cook most nights and like trying new dishes and techniques. A few things
+    I've made:
+  </p>
+  <div id="food" class="food"></div>
+
+  <footer>More photos on the <a href="travel.html">travel</a> page.</footer>
+</main>
+<script src="lightbox.js"></script>
+<script>
+  document.getElementById("food").innerHTML = photoGrid([
+    ["food/2", "My Italian crostata"],
+    ["food/9", "Spaghetti al pomodoro"],
+    ["food/5", "Pasta with ragù"],
+    ["food/3", "Risotto with roast chicken"],
+    ["food/0", "Chicken thighs in cast iron"],
+    ["food/6", "Homemade sushi"],
+    ["food/7", "Shakshuka brunch"],
+    ["food/1", "French toast with berries"],
+    ["food/4", "Soup for two"],
+  ]);
+</script>
+</body>
+</html>
